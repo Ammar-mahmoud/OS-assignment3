@@ -1,3 +1,4 @@
+import java.util.Random;
 public class Process {
     private String Name;
     private String color;
@@ -19,26 +20,34 @@ public class Process {
         this.AG_Factor = -1;
     }
 
+    private  int calcAGFactor()
+    {
+        Random random = new Random();
+        int RF =  random.nextInt(20 + 1);
+        if (RF < 10){
+            return RF + burst_time + arrival_time;
+        } else if (RF > 10) {
+            return 10 + burst_time + arrival_time;
+        } else {
+            return priority_number + burst_time + arrival_time;
+        }
+    }
 
     public String getName() {
         return Name;
     }
-
     public String getColor() {
         return color;
     }
-
     public int getAG_Factor() {
         return AG_Factor;
     }
     public int getArrival_time() {
         return arrival_time;
     }
-
     public int getBurst_time() {
         return burst_time;
     }
-
     public int getPriority_number() {
         return priority_number;
     }
