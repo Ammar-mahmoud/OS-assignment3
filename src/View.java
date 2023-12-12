@@ -36,8 +36,8 @@ public class View {
         //runSJFScheduler(processes);
         //runSRTFScheduler(processes);
         //runPriorityScheduler(processes);
-        AG_Scheduler agScheduler=new AG_Scheduler();
-        agScheduler.runAGScheduler(processes);
+        AG_Scheduler agScheduler=new AG_Scheduler(processes);
+        agScheduler.runAGScheduler();
         scanner.close();
     }
 }
