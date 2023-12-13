@@ -26,7 +26,7 @@ public class View {
             System.out.print("Priority: ");
             int priority = scanner.nextInt();
 
-            Process process = new Process(name,color, arrivalTime, burstTime, priority, quantumTime,contextSwitchingTime);
+            Process process = new Process(name,color, arrivalTime, burstTime, priority, quantumTime);
             processes.add(process);
         }
         // Sort processes based on arrival time
@@ -36,7 +36,7 @@ public class View {
         //runSJFScheduler(processes);
         //runSRTFScheduler(processes);
         //runPriorityScheduler(processes);
-        AG_Scheduler agScheduler=new AG_Scheduler(processes);
+        AG_Scheduler agScheduler=new AG_Scheduler(processes,contextSwitchingTime);
         agScheduler.runAGScheduler();
         scanner.close();
     }

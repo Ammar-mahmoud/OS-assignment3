@@ -6,28 +6,25 @@ public class Process {
     private int burst_time;
     private int priority_number;
     private int quantum_time;
-    private int contextSwitching_time;
     private int AG_Factor;
 
-    public Process(String Name, String color, int arrival_time, int burst_time, int priority_number, int quantumTime,int contextSwitching_time) {
+    public Process(String Name, String color, int arrival_time, int burst_time, int priority_number, int quantumTime) {
         this.Name=Name;
         this.color=color;
         this.arrival_time=arrival_time;
         this.burst_time=burst_time;
         this.priority_number=priority_number;
         this.quantum_time = quantumTime;
-        this.contextSwitching_time=contextSwitching_time;
         this.AG_Factor = calcAGFactor();
     }
 
-    public Process(String name, String color, int arrival_time, int burst_time, int priority_number, int quantum_time, int contextSwitching_time, int AG_Factor) {
+    public Process(String name, String color, int arrival_time, int burst_time, int priority_number, int quantum_time, int AG_Factor) {
         Name = name;
         this.color = color;
         this.arrival_time = arrival_time;
         this.burst_time = burst_time;
         this.priority_number = priority_number;
         this.quantum_time = quantum_time;
-        this.contextSwitching_time = contextSwitching_time;
         this.AG_Factor = AG_Factor;
     }
 

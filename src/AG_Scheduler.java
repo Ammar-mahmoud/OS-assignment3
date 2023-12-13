@@ -10,19 +10,28 @@ public class AG_Scheduler {
     private Map<String,Integer>TurnaroundTimes;
     private List<Process> processList;
     private int Current_time;
-    private List<Process> ConcreteprocessList;
+    private List<Integer> FinalResultTimes;
+    private List<String> FinalResultNames;
+    private int ContextSwitchingTime;
 
-    public AG_Scheduler(List<Process> processList) {
+    public AG_Scheduler(List<Process> processList,int ContextSwitchingTime) {
         this.DieList = new ArrayList<>();
         this.ReadyQueue=new LinkedList<>();
         this.WaitingTimes=new HashMap<>();
+        for(Process process:processList){
+            WaitingTimes.put(process.getName(),process.getBurst_time());
+        }
         this.TurnaroundTimes=new HashMap<>();
         this.Current_time=0;
         this.processList = processList;
-        this.ConcreteprocessList=processList;
+        this.FinalResultTimes=new ArrayList<>();
+        this.FinalResultNames=new ArrayList<>();
+        this.ContextSwitchingTime=ContextSwitchingTime;
     }
     public void Print_history(Process process){
         System.out.println(process.getName()+" is Running Now");
+        FinalResultNames.add(process.getName());
+        FinalResultTimes.add(Current_time);
         //System.out.println("Burst time " + process.getBurst_time());
         System.out.println("Quantum time " + process.getQuantum_time());
         System.out.println("-------------------------------------------");
@@ -124,14 +133,14 @@ public class AG_Scheduler {
                     DieList.add(p);
                     Current_time++;
                     updateReady();
-                    WaitingTimes.put(p.getName(),Current_time-p.getArrival_time()-p.getBurst_time());
+                    WaitingTimes.put(p.getName(),Current_time-p.getArrival_time()-WaitingTimes.get(p.getName()));
                     TurnaroundTimes.put(p.getName(),Current_time-p.getArrival_time());
                     break;
                 }
                 // make sure you handle last loop
                 // push in ready queue and call cacl mean function
                 if(i==p.getQuantum_time()-1){
-                    System.out.println("Quantum of the first process finishes");
+                    //System.out.println("Quantum of the first process finishes");
                     int addedValue = (int) Math.ceil(CalculateMean() * 0.1);
                     p.setQuantum_time(p.getQuantum_time() + addedValue); // Original Quantum time + 10% of the mean of Quantum
                     ReadyQueue.add(p);
@@ -170,7 +179,8 @@ public class AG_Scheduler {
                 }
             }
         }
-        System.out.println("We Finished in " + Current_time);
+        //System.out.println("We Finished in " + Current_time);
+        FinalResultTimes.add(Current_time);
         int numofProcess=0;
         double TotalWaitingTime=0.0;
         for (Map.Entry<String, Integer> entry : WaitingTimes.entrySet()) {
@@ -190,6 +200,15 @@ public class AG_Scheduler {
             System.out.println("Turnaround Time for " + key + " is : " + value);
         }
         System.out.println("Average Turnaround Time is : "+TotalTurnaroundTime/numofProcess);
+        System.out.println("-----------------------------------------");
+        for (String name : FinalResultNames) {
+            System.out.printf("%-10s", name);
+        }
+        System.out.println();
 
+        for (Integer time : FinalResultTimes) {
+            System.out.printf("%-10s", time);
+        }
+        System.out.println();
     }
 }
