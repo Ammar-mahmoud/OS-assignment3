@@ -4,7 +4,6 @@ public class View {
     public void view()
     {
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Enter the number of processes: ");
         int numProcesses = scanner.nextInt();
         System.out.print("Enter Round Robin Time Quantum: ");
@@ -31,23 +30,41 @@ public class View {
         }
         // Sort processes based on arrival time
         Collections.sort(processes, Comparator.comparingInt(p -> p.getArrival_time()));
-
         // Run schedulers
-        System.out.println("-------------------------Test for SJF-------------------------");
-        List<Process> processes1=processes;
-        SJF sjf =new SJF(processes1 , contextSwitchingTime);
-        sjf.runSJFScheduler();
-        //runSRTFScheduler(processes);
-        //runPriorityScheduler(processes)
-        System.out.println("-------------------------Test for AG_Scheduler-------------------------T");
-        List<Process>pp=processes;
-        //ArrayList<Process> test = new ArrayList<>();
-        //test.add(new Process("P1","ss", 0,17,4, 4));
-        //test.add(new Process("P2","ss", 3,6,9, 4));
-        //test.add(new Process("P3","ss", 4,10,2, 4));
-        //test.add(new Process("P4","ss", 29,4,8, 4));
-        AG_Scheduler agScheduler=new AG_Scheduler(processes,0);
-        agScheduler.runAGScheduler();
+        System.out.println("Enter Which Scheduling Algorithm You want to Apply ");
+        System.out.println("For SJF Scheduler Enter --------------> 1");
+        System.out.println("For SRTF Scheduler Enter -------------> 2");
+        System.out.println("For Priority Scheduler Enter ---------> 3");
+        System.out.println("For AG Scheduler Enter ---------------> 4");
+        int ch=scanner.nextInt();
+        if(ch==1) {
+            System.out.println("-------------------------Test for SJF Scheduler-------------------------");
+            SJF sjf = new SJF(processes, contextSwitchingTime);
+            sjf.runSJFScheduler();
+        }
+        else if(ch==2){
+            System.out.println("-------------------------Test for SRTF Scheduler-------------------------");
+            //SRTF srtf = new SRTF(processes, contextSwitchingTime);
+            //srtf.runSRTFScheduler();
+        }
+        else if(ch==3) {
+            System.out.println("-------------------------Test for Priority Scheduler-------------------------");
+            PriorityScheduling priorityScheduling = new PriorityScheduling();
+            priorityScheduling.runPriorityScheduler(processes);
+        }
+        else if (ch==4) {
+            System.out.println("-------------------------Test for AG_Scheduler-------------------------");
+            //ArrayList<Process> test = new ArrayList<>();
+            //test.add(new Process("P1","ss", 0,17,4, 4));
+            //test.add(new Process("P2","ss", 3,6,9, 4));
+            //test.add(new Process("P3","ss", 4,10,2, 4));
+            //test.add(new Process("P4","ss", 29,4,8, 4));
+            AG_Scheduler agScheduler = new AG_Scheduler(processes, 0);
+            agScheduler.runAGScheduler();
+        }
+        else{
+            System.out.println("Invalid Choice");
+        }
         scanner.close();
     }
 }

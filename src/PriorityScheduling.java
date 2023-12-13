@@ -1,6 +1,7 @@
 import java.util.*;
 
 public class PriorityScheduling {
+
     public void runPriorityScheduler(List<Process> processList) {
         List<Process> originalProcessList = new ArrayList<>(processList);
         Map<Process, Integer> originalPriorities = new HashMap<>();
