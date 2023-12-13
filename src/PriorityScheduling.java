@@ -1,17 +1,12 @@
 import java.util.*;
 
 public class PriorityScheduling {
-
     public void runPriorityScheduler(List<Process> processList) {
-        List<Process> originalProcessList = new ArrayList<>(processList);
-        Map<Process, Integer> originalPriorities = new HashMap<>();
-        for (Process process : originalProcessList) {
-            originalPriorities.put(process, process.getPriority_number());
-        }
         int numProcesses = processList.size();
 
         Collections.sort(processList, Comparator.comparingInt(Process::getArrival_time));
 
+        // Initialize priority queue to store processes based on priority
         PriorityQueue<Process> priorityQueue = new PriorityQueue<>(
                 Comparator.comparingInt(Process::getPriority_number));
 
@@ -31,33 +26,30 @@ public class PriorityScheduling {
 
                 int waitingTime = timer - currentProcess.getArrival_time();
                 int turnaroundTime = waitingTime + currentProcess.getBurst_time();
-                System.out.println("------------------");
 
+                // Print the process information
                 System.out.println("Process " + currentProcess.getName() + " finished at time "
                         + (timer + currentProcess.getBurst_time()));
                 System.out.println("  Waiting Time: " + waitingTime);
                 System.out.println("  Turnaround Time: " + turnaroundTime);
 
-                // Update timer
+                // Update timer and priority numbers for remaining processes in the queue
                 timer += currentProcess.getBurst_time();
                 totalWaitingTime += waitingTime;
                 totalTurnaroundTime += turnaroundTime;
+
+                priorityQueue.forEach(process -> {
+                    int newPriority = Math.max(process.getPriority_number() - 1, 0);
+                    process.setPriority_number(newPriority);
+                }); // solve starvation problem by decrementing the priorting number by 1
             }
         }
 
-        // Restore original priorities without any edits
-        for (Process process : originalProcessList) {
-            process.setPriority_number(originalPriorities.get(process));
-        }
-
-        processList.clear();
-        processList.addAll(originalProcessList);
-
+        // Calculate and print average waiting time and average turnaround time
         double avgWaitingTime = (double) totalWaitingTime / numProcesses;
         double avgTurnaroundTime = (double) totalTurnaroundTime / numProcesses;
-        System.out.println("==================================");
+
         System.out.println("\nAverage Waiting Time: " + avgWaitingTime);
         System.out.println("Average Turnaround Time: " + avgTurnaroundTime);
-
     }
 }
