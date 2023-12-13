@@ -7,17 +7,22 @@ public class Process {
     private int priority_number;
     private int quantum_time;
     private int AG_Factor;
+    private int ID;  // Make ID an instance variable
+
+    // Use a static variable to keep track of the next available ID
+    private static int nextID = 1;
 
     public Process(String Name, String color, int arrival_time, int burst_time, int priority_number, int quantumTime) {
-        this.Name=Name;
-        this.color=color;
-        this.arrival_time=arrival_time;
-        this.burst_time=burst_time;
-        this.priority_number=priority_number;
+        this.Name = Name;
+        this.color = color;
+        this.arrival_time = arrival_time;
+        this.burst_time = burst_time;
+        this.priority_number = priority_number;
         this.quantum_time = quantumTime;
         this.AG_Factor = calcAGFactor();
+        this.ID = nextID++;  // Assign unique ID and increment nextID
     }
-
+/*
     public Process(String name, String color, int arrival_time, int burst_time, int priority_number, int quantum_time, int AG_Factor) {
         Name = name;
         this.color = color;
@@ -27,7 +32,7 @@ public class Process {
         this.quantum_time = quantum_time;
         this.AG_Factor = AG_Factor;
     }
-
+    */
 
     private  int calcAGFactor()
     {
@@ -70,5 +75,8 @@ public class Process {
 
     public void setQuantum_time(int quantum_time) {
         this.quantum_time = quantum_time;
+    }
+    public int getID(){
+        return ID;
     }
 }

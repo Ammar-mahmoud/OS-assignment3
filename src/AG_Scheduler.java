@@ -150,14 +150,14 @@ public class AG_Scheduler {
                 }
                 //System.out.println("ReadyQueue Before update ready in "+Current_time);
                 //for(Process process:ReadyQueue){
-                    //System.out.println(process.getName());
+                //System.out.println(process.getName());
                 //}
                 Current_time++;
                 updateReady();
                 //System.out.println("ReadyQueue After update ready in "+Current_time);
                 //for(Process process:ReadyQueue){
-                    //System.out.println(process.getName());
-               // }
+                //System.out.println(process.getName());
+                // }
 
             }
             if (DieList.size() == processList.size()) break;
