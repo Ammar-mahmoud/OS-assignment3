@@ -20,8 +20,6 @@ public class Main {
                                 "P4", "ss", 29, 4, 8,
                                 4, 43));
                 AG_Scheduler agScheduler = new AG_Scheduler(test, 0);
-                PriorityScheduling aa = new PriorityScheduling();
-                // agScheduler.runAGScheduler();
-                aa.runPriorityScheduler(test);
+                agScheduler.runAGScheduler();
         }
 }
