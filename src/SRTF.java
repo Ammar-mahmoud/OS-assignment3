@@ -76,26 +76,24 @@ public class SRTF {
             for (Process process : processList) {
                 if (process.getArrival_time() <= CurrentTimer) {
                     currentProcesses.add(process);
-//                    process.setPriority_number(process.getPriority_number() + 1);
+                    process.setPriority_number(process.getPriority_number() + 1);
                 }
             }
 
             if (!currentProcesses.isEmpty()) {
-                Process currentTask = Collections.min(currentProcesses, Comparator.comparingInt(Process::getBurst_time));
+                Process currentTask = Collections.min(currentProcesses, Comparator.comparingInt(Process::getBurst_time).thenComparingInt(Process::getPriority_number));
                 String currentTaskName = currentTask.getName();
-                ProcessOrder.add(currentTask.getName());
+                ProcessOrder.add(currentTaskName);
                 if (!WaitingTimes.containsKey(currentTaskName)) {
-                    WaitingTimes.put(currentTaskName, CurrentTimer - currentTask.getArrival_time() - WaitingTimes.get(currentTaskName));
+                    WaitingTimes.put(currentTaskName, CurrentTimer - currentTask.getArrival_time());
                 }
                 currentTask.setBurst_time(currentTask.getBurst_time() - 1);
                 CurrentTimer++;
-
                 if (currentTask.getBurst_time() == 0) {
                     processList.remove(currentTask);
                     TurnaroundTimes.put(currentTaskName, CurrentTimer - currentTask.getArrival_time());
                 }
-            }
-            else {
+            } else {
                 CurrentTimer++; // Increment the timer if there are no eligible processes
             }
         }
