@@ -44,8 +44,8 @@ public class View {
         }
         else if(ch==2){
             System.out.println("-------------------------Test for SRTF Scheduler-------------------------");
-            //SRTF srtf = new SRTF(processes, contextSwitchingTime);
-            //srtf.runSRTFScheduler();
+            SRTF srtf = new SRTF(processes);
+            srtf.runSRTFScheduler();
         }
         else if(ch==3) {
             System.out.println("-------------------------Test for Priority Scheduler-------------------------");
