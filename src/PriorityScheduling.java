@@ -15,13 +15,13 @@ public class PriorityScheduling {
         int totalTurnaroundTime = 0;
 
         while (!processList.isEmpty() || !priorityQueue.isEmpty()) {
-            // Add processes with the same arrival time to the priority queue
+            // Add processes with the same arrival time
             while (!processList.isEmpty() && processList.get(0).getArrival_time() <= timer) {
                 priorityQueue.add(processList.remove(0));
             }
 
             if (!priorityQueue.isEmpty()) {
-                // Get the process with the highest priority from the priority queue
+                // Get the process with the highest priority
                 Process currentProcess = priorityQueue.poll();
 
                 int waitingTime = timer - currentProcess.getArrival_time();
@@ -33,7 +33,7 @@ public class PriorityScheduling {
                 System.out.println("  Waiting Time: " + waitingTime);
                 System.out.println("  Turnaround Time: " + turnaroundTime);
 
-                // Update timer and priority numbers for remaining processes in the queue
+                // Update timer
                 timer += currentProcess.getBurst_time();
                 totalWaitingTime += waitingTime;
                 totalTurnaroundTime += turnaroundTime;
@@ -45,7 +45,6 @@ public class PriorityScheduling {
             }
         }
 
-        // Calculate and print average waiting time and average turnaround time
         double avgWaitingTime = (double) totalWaitingTime / numProcesses;
         double avgTurnaroundTime = (double) totalTurnaroundTime / numProcesses;
 
