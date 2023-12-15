@@ -11,7 +11,7 @@ public class SRTF {
 
     public SRTF(List<Process> processList) {
         this.WaitingTimes = new HashMap<>();
-        for(Process process:processList){
+        for(Process process : processList){
             WaitingTimes.put(process.getName(),process.getBurst_time());
         }
         this.TurnaroundTimes = new HashMap<>();
@@ -94,7 +94,7 @@ public class SRTF {
                     TurnaroundTimes.put(currentTaskName, CurrentTimer - currentTask.getArrival_time());
                 }
             } else {
-                CurrentTimer++; // Increment the timer if there are no eligible processes
+                CurrentTimer++; // Increment the timer if there are no current Processes 
             }
         }
         PrintOrder(ProcessOrder);
